@@ -97,13 +97,13 @@ class AuthCityControllerTest extends SpringBootAppApplicationTests {
     @Test
     @DisplayName("Given valid city id, the corresponding city should be removed from the user favourite cities list")
     public void testCityHasBeenRemovedFromUserFavoritesList() throws Exception {
-        mvc.perform(delete("/v1/auth/city/9/removeFromFavourites")
+        mvc.perform(delete("/v1/auth/city/3/removeFromFavourites")
                 .header(JWT_TOKEN_HEADER_KEY, getJwtToken())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
         User user = userService.findUser("admin");
-        cityService.findById(9).ifPresentOrElse(city -> assertAll(
+        cityService.findById(3).ifPresentOrElse(city -> assertAll(
                 () -> assertNotNull(city),
                 () -> assertFalse(city.getUsersWhoMarkedAsFavourite().contains(user))
         ), Assertions::fail);

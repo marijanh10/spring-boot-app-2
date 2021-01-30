@@ -71,8 +71,12 @@ public class AuthCityController {
     private void removeCityFromUser(City city, String email) {
         User user = userService.findUser(email);
         if (user != null) {
-            user.removeFavouriteCity(city);
-            userService.saveUsers(user);
+            if (user.removeFavouriteCity(city)) {
+                userService.saveUsers(user);
+            } else {
+                throw new IllegalArgumentException("User " + user.getEmail() +
+                        " didn't mark the city: " + city.getName() + " as favourite");
+            }
         }
     }
 

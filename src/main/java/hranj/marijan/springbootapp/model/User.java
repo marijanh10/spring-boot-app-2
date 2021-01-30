@@ -44,9 +44,10 @@ public class User {
         city.getUsersWhoMarkedAsFavourite().add(this);
     }
 
-    public void removeFavouriteCity(City city) {
-        myFavouriteCities.remove(city);
+    public boolean removeFavouriteCity(City city) {
+        boolean hasBeenRemoved = myFavouriteCities.remove(city);
         city.getUsersWhoMarkedAsFavourite().remove(this);
+        return hasBeenRemoved;
     }
 
 }
